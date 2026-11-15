@@ -68,6 +68,7 @@
     ./programs/pandoc
     ./programs/wayvr
     ./programs/w3m
+    ./programs/chawan
     ./programs/souieba
 
     # wm
