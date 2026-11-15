@@ -1,4 +1,47 @@
 { config, inputs, pkgs, ... }:
+let
+  cycleAudioOutput = pkgs.writeShellApplication {
+    name = "cycle-audio-output";
+    runtimeInputs = [ pkgs.pulseaudio pkgs.jq pkgs.libnotify ];
+    text = ''
+      sink_list="$(pactl list short sinks)"
+      sinks=()
+      while IFS=$'\t' read -r _ sink_name _; do
+        [[ -n "$sink_name" ]] && sinks+=("$sink_name")
+      done <<< "$sink_list"
+
+      if (( ''${#sinks[@]} < 2 )); then
+        exit 0
+      fi
+
+      current_sink="$(pactl get-default-sink)"
+      current_index=-1
+      for index in "''${!sinks[@]}"; do
+        if [[ "''${sinks[$index]}" == "$current_sink" ]]; then
+          current_index="$index"
+          break
+        fi
+      done
+
+      next_index=0
+      if (( current_index >= 0 )); then
+        next_index=$(((current_index + 1) % ''${#sinks[@]}))
+      fi
+      next_sink="''${sinks[$next_index]}"
+
+      pactl set-default-sink "$next_sink"
+
+      sink_inputs="$(pactl list short sink-inputs)"
+      while IFS=$'\t' read -r input_id _; do
+        [[ "$input_id" =~ ^[0-9]+$ ]] || continue
+        pactl move-sink-input "$input_id" "$next_sink" || true
+      done <<< "$sink_inputs"
+
+      sink_description="$(pactl --format=json list sinks | jq -r --arg name "$next_sink" 'first(.[] | select(.name == $name) | .description | strings) // empty')"
+      notify-send "Audio output" "''${sink_description:-$next_sink}"
+    '';
+  };
+in
 {
   imports = [ inputs.niri-flake.homeModules.niri ];
 
@@ -135,6 +178,11 @@
           action = spawn-sh "pkill orca || exec orca";
           allow-when-locked = true;
           hotkey-overlay.hidden = true;
+        };
+
+        "Mod+Alt+A" = {
+          action = spawn-sh "${cycleAudioOutput}/bin/cycle-audio-output";
+          hotkey-overlay.title = "Cycle audio output";
         };
 
         "XF86AudioRaiseVolume" = {

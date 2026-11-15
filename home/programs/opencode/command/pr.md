@@ -33,9 +33,7 @@ Follow these steps in order. Stop and report if a step is impossible.
      verified, stop. Never switch to, commit to, or push from `main` or `master`.
 
 3. Stage the intended changes with `git add <paths>`. Stage specific files; never
-   use `git add -A` blindly. Never stage secrets, `.env` files, or `flake.lock`
-   (the latter is updated automatically).
-
+   use `git add -A` blindly. Never stage secrets, `.env` files.
 4. Write the commit message following the repository commit convention:
    `<type>(<scope>): <description>`. English, imperative mood, lowercase first
    letter, no trailing period. Pick the scope from the changed paths (e.g.
