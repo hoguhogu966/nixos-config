@@ -20,6 +20,10 @@ in
         substituteInPlace Modules/Panels/Audio/AudioPanel.qml \
           --replace-fail 'if (AudioService.source && AudioService.source.id === panelContent.lastSourceId) {' \
           'if (panelContent.inputVolumeGuard && AudioService.source && AudioService.source.id === panelContent.lastSourceId) {'
+        substituteInPlace Modules/Bar/Widgets/Tray.qml \
+          --replace-fail 'readonly property int iconSize: Style.toOdd(capsuleHeight * 0.65)' \
+          'readonly property real iconScale: widgetSettings.iconScale !== undefined ? widgetSettings.iconScale : 1.0
+  readonly property int iconSize: Style.toOdd(capsuleHeight * 0.65 * iconScale)'
       '';
     });
     settings = {
@@ -75,6 +79,7 @@ in
             right = [
               {
                 id = "Tray";
+                iconScale = 1.15;
               }
               {
                 id = "NotificationHistory";
