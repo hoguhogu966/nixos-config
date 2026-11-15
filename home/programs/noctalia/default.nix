@@ -17,6 +17,7 @@
         clipboard_enabled = false;
         telemetry_enabled = false;
         screen_time_enabled = true;
+        panel.open_near_click_control_center = true;
       };
 
       theme = {
