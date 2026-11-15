@@ -133,6 +133,7 @@
         vertical_format = "{:%H\\n%M}";
         tooltip_format = "{:%Y/%m/%d %H:%M (%a)}";
       };
+      widget.tray.scale = 1.15;
 
       plugins = {
         enabled = [
