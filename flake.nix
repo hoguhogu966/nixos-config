@@ -109,6 +109,17 @@
       url = "github:Supreeeme/xwayland-satellite/v0.8.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri-flake = {
+      url = "github:sodiboo/niri-flake";
+      inputs = {
+        niri-stable.follows = "";
+        niri-unstable.follows = "";
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
+        xwayland-satellite-stable.follows = "";
+        xwayland-satellite-unstable.follows = "";
+      };
+    };
     kopuz.url = "github:Kopuz-org/kopuz";
     hermes-agent = {
       url = "github:NousResearch/hermes-agent";

@@ -16,11 +16,12 @@
         font_family = "Gen Interface JP";
         clipboard_enabled = false;
         telemetry_enabled = false;
+        screen_time_enabled = true;
       };
 
       theme = {
         mode = "dark";
-        source = "builtin";
+        source = "wallpaper";
         builtin = "Rosé Pine";
         templates = {
           enable_builtin_templates = false;
@@ -64,14 +65,30 @@
           default_lead_minutes = 10;
         };
       };
-      control_center.calendar = {
-        show_events_card = true;
-        show_week_numbers = false;
+      control_center = {
+        sidebar = "full";
+        shortcuts = [
+          { type = "bluetooth"; }
+          { type = "nightlight"; }
+          { type = "notification"; }
+          { type = "mic_mute"; }
+          { type = "system"; }
+          { type = "session"; }
+        ];
+        calendar = {
+          show_events_card = true;
+          show_week_numbers = false;
+        };
       };
 
       audio = {
         enable_overdrive = false;
         enable_sounds = false;
+      };
+
+      brightness = {
+        enable_ddcutil = true;
+        sync_all_monitors = true;
       };
 
       lockscreen = {
@@ -82,14 +99,15 @@
       bar.main = {
         position = "top";
         thickness = 34;
-        background_opacity = 0.93;
+        background_opacity = 0.7;
         radius = 12;
         margin_ends = 4;
         margin_edge = 4;
         padding = 4;
         widget_spacing = 6;
         capsule = true;
-        capsule_opacity = 1.0;
+        capsule_padding = 10;
+        capsule_opacity = 0.7;
         auto_hide = false;
         start = [
           "launcher"
@@ -111,7 +129,7 @@
         ];
       };
       widget.clock = {
-        format = "{:%H\\n%M}";
+        format = "{:%H:%M}";
         vertical_format = "{:%H\\n%M}";
         tooltip_format = "{:%Y/%m/%d %H:%M (%a)}";
       };
