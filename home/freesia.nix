@@ -33,6 +33,7 @@
     ./programs/chawan
 
     # gui
+    ./programs/plamonic
     ./programs/ghostty/config.nix
     ./programs/tailscale-gui
     ./programs/appcleaner
