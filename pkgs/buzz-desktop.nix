@@ -36,13 +36,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "buzz-desktop";
-  version = "0.5.28";
+  version = "0.5.30";
 
   src = fetchFromGitHub {
     owner = "block";
     repo = "buzz";
     tag = "desktop-v${finalAttrs.version}";
-    hash = "sha256-NEsLQwcoQ2zTgznFgGFGNgYPnoclicNVycSEjl7I0Wo=";
+    hash = "sha256-Ay6zUeHHYO92/Fs4FGHm1+QQUoUEQjYyOC3dDg5+7Ss=";
   };
 
   cargoLock = {
@@ -59,7 +59,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm;
     fetcherVersion = 4;
-    hash = "sha256-gmihUFwbA/KAM/91q6BOn8jCSzuDeQdJuvk4HTbZK1Q=";
+    hash = "sha256-LcPCcEOYPrz3bojoDkpU152dMLJlzQqSU7ziAUsKX6g=";
   };
 
   sherpaOnnxArchive = fetchurl {
