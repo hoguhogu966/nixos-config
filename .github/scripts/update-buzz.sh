@@ -35,7 +35,7 @@ if [ "$newest_version" != "$latest_version" ]; then
   exit 0
 fi
 
-nix-update --file pkgs/update-targets.nix --override-filename pkgs/buzz-desktop.nix \
-  --version "$latest_version" buzz-desktop
 nix-update --file pkgs/update-targets.nix --override-filename pkgs/buzz-sidecars.nix \
   --version "$latest_version" buzz-sidecars
+nix-update --file pkgs/update-targets.nix --override-filename pkgs/buzz-desktop.nix \
+  --version "$latest_version" buzz-desktop
