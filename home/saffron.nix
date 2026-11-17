@@ -83,6 +83,7 @@
     # saffron-specific
     ./programs/pipewire
     ./programs/wireplumber
+    ./programs/wireplumber/dell-display.nix
     ./programs/playerctl
     ./programs/grim
     ./programs/xremap
