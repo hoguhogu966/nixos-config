@@ -38,19 +38,9 @@ jobs:
       - name: Update pinned package versions and hashes
         env:
           GH_TOKEN: ${{ steps.bot.outputs.token }}
-        run: |
-          nix shell 'nixpkgs#nix-update' 'nixpkgs#python3' 'nixpkgs#jq' --command bash -euo pipefail -c '
-            .github/scripts/update-rea.sh
-            nix-update --file pkgs/update-targets.nix --override-filename pkgs/rea.nix --no-src --version skip rea
-
-            .github/scripts/update-buzz.sh
-            nix-update --file pkgs/update-targets.nix --override-filename pkgs/cloudflared.nix cloudflared
-            nix-update --file pkgs/update-targets.nix --override-filename pkgs/effectcraft.nix effectcraft
-            nix-update --file pkgs/update-targets.nix --override-filename pkgs/ink.nix ink
-            nix-update --file pkgs/update-targets.nix --override-filename pkgs/ollama.nix ollama
-            .github/scripts/update-omniwm.sh
-            nix-update --file pkgs/update-targets.nix --override-filename pkgs/souieba.nix souieba
-          '
+        run: >
+          nix shell 'nixpkgs#nix-update' 'nixpkgs#python3' 'nixpkgs#jq'
+          --command .github/scripts/update-all.sh
 
       - name: Create or update pull request
         env:
@@ -60,6 +50,10 @@ jobs:
           git add pkgs
           if git diff --cached --quiet -- pkgs; then
             echo "No custom package updates found"
+            if [ -n "${UPDATE_FAILURES:-}" ]; then
+              echo "::error::no package could be updated; failures: ${UPDATE_FAILURES}"
+              exit 1
+            fi
             exit 0
           fi
 
@@ -72,6 +66,9 @@ jobs:
 
           BODY
           )
+          if [ -n "${UPDATE_FAILURES:-}" ]; then
+            body=$(printf '%s\n\n**Skipped this run (update failed):** %s\n' "$body" "${UPDATE_FAILURES}")
+          fi
 
           git checkout -b "$branch"
           git commit -m "$title"
@@ -82,4 +79,9 @@ jobs:
             gh pr create --title "$title" --body "$body" --base main --head "$branch"
           else
             gh pr edit "$existing" --title "$title" --body "$body"
+          fi
+
+          if [ -n "${UPDATE_FAILURES:-}" ]; then
+            echo "::error::some package updates failed: ${UPDATE_FAILURES} (successful updates were still turned into a pull request)"
+            exit 1
           fi

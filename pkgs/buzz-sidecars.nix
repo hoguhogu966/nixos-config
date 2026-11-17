@@ -10,13 +10,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "buzz-sidecars";
-  version = "0.5.28";
+  version = "0.5.30";
 
   src = fetchFromGitHub {
     owner = "block";
     repo = "buzz";
     tag = "desktop-v${finalAttrs.version}";
-    hash = "sha256-NEsLQwcoQ2zTgznFgGFGNgYPnoclicNVycSEjl7I0Wo=";
+    hash = "sha256-Ay6zUeHHYO92/Fs4FGHm1+QQUoUEQjYyOC3dDg5+7Ss=";
   };
 
   cargoLock = {
@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     outputHashes = {
       "aws-creds-0.39.1" = "sha256-QAAm1phmeLFtDRgfDCoHijN1ce/rYzh18KziOUbL+hw=";
       "mesh-llm-api-client-0.76.2" = "sha256-xbyNjc2oInEkmQWkGDAslCM/cNhAVjE4xcpVLFixlLE=";
-      "sqlx-core-0.9.0" = "sha256-OfenNO9+5pHeX6yJpMiNW+HSQWvqdtCHt0mpzT8wpFw=";
+      "sqlx-0.9.0" = "sha256-ylINKXS/op4is32tx1GYot9AOYw5yTzBtePyzQeKTUA=";
     };
   };
 

@@ -8,13 +8,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ink";
-  version = "0.13.0";
+  version = "0.15.0";
 
   src = fetchFromGitHub {
     owner = "borghei";
     repo = "ink";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-ZSPZg3tU2QWzVCGrVoriFBr6MXlYsXuy1oy8ZSC8V4o=";
+    hash = "sha256-c2PK7+h4rZDb5eGPMwNwjI7D4tZH/gPCq73xT/8r5xE=";
   };
 
   cargoLock = {

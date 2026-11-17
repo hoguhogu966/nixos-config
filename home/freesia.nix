@@ -5,8 +5,6 @@
     ./programs/git
     ./programs/nixvim
     ./programs/opencode
-    ./programs/hermes-agent
-    ./programs/tmux
     ./programs/zsh
     ./programs/herdr
     ./programs/yazi
@@ -16,9 +14,9 @@
     ./programs/btop
     ./programs/ghq
     ./programs/gitea-cli
-    ./programs/google-chrome
     ./programs/fzf
     ./programs/ripgrep
+    ./programs/leaf
     ./programs/slack
     ./programs/tailscale-gui
     ./programs/emacs
@@ -32,14 +30,22 @@
     ./programs/ollama
     ./programs/bat
     ./programs/w3m
+    ./programs/chawan
 
     # gui
+    ./programs/plamonic
     ./programs/ghostty/config.nix
+    ./programs/tailscale-gui
+    ./programs/appcleaner
     ./programs/obs
     ./programs/vesktop
     ./programs/kopuz
     ./programs/whatcable
     ./programs/firefox
+    ./programs/google-chrome
+    ./programs/discord
+    ./programs/slack
+    ./programs/signal-desktop
 
     # utils
     ./programs/nh

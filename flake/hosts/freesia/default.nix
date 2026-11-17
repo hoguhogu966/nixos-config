@@ -2,6 +2,7 @@
   self,
   inputs,
   username,
+  isCI ? false,
   ...
 }:
 let
@@ -42,6 +43,7 @@ nix-darwin.lib.darwinSystem {
           effectcraft = final.callPackage ../../../pkgs/effectcraft.nix { };
           souieba = final.callPackage ../../../pkgs/souieba.nix { };
           rea = final.callPackage ../../../pkgs/rea.nix { };
+          plamonic = final.callPackage ../../../pkgs/plamonic.nix { };
           ollama = final.callPackage ../../../pkgs/ollama.nix {
             ollama = inputs.nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system}.ollama;
           };
@@ -55,6 +57,7 @@ nix-darwin.lib.darwinSystem {
         useUserPackages = true;
         backupFileExtension = "backup";
         extraSpecialArgs = {
+          inherit isCI;
           inherit
             inputs
             my-dotfiles

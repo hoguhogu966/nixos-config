@@ -10,7 +10,9 @@
     ./programs/gitea-cli
     ./programs/fzf
     ./programs/ripgrep
+    ./programs/leaf
     ./programs/w3m
+    ./programs/chawan
     ./programs/docker
     ./programs/colima
     ./programs/fontconfig

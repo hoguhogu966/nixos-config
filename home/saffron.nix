@@ -25,6 +25,7 @@
     ./programs/emacs
     ./programs/bat
     ./programs/ink
+    ./programs/leaf
     ./programs/nb
     ./programs/wl-clipboard
     ./programs/late-sh
@@ -67,6 +68,7 @@
     ./programs/pandoc
     ./programs/wayvr
     ./programs/w3m
+    ./programs/chawan
     ./programs/souieba
 
     # wm
