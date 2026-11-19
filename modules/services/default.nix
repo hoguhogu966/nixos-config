@@ -5,16 +5,31 @@
 #   research/  knowledge bases and search (altero, rustxng)
 #   dev/       bots and helper tools (color-dis-bot)
 #
-# These are Home Manager / darwin modules (launchd.agents); they are only
-# imported by hosts that actually run the services (currently darwin
-# zephyr, via home/zephyr.nix).
+# Each service is listed individually here, so enabling/disabling one is
+# a single-line change. These are Home Manager / darwin modules
+# (launchd.agents); they are only imported by hosts that actually run
+# the services (currently darwin zephyr, via home/zephyr.nix).
 { ... }:
 {
   imports = [
-    ./web
-    ./media
-    ./files
-    ./research
-    ./dev
+    # web
+    ./web/gitea
+    ./web/linkding
+    ./web/penpot
+    ./web/pydio
+    ./web/vikunja
+
+    # media
+    ./media/jellyfin
+
+    # files
+    ./files/samba
+
+    # research
+    ./research/altero
+    ./research/rustxng
+
+    # dev
+    ./dev/color-dis-bot
   ];
 }

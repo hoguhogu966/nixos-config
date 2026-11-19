@@ -10,6 +10,9 @@
 | `research/` | altero (zotero連携), rustxng (メタ検索) |
 | `dev/` | color-dis-bot (flake input として取り込み) |
 
+有効/無効は `modules/services/default.nix` で**サービス単位** (ディレクトリ単位では
+ない) で指定する。外したいサービスはその import 行を削除して rebuild する。
+
 ## 仕組み
 
 - 各サービスは `lib/compose.nix` 経由で
