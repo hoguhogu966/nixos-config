@@ -10,7 +10,7 @@ macOS laptop — nix-darwin on `aarch64-darwin`. Smaller than `freesia`; usernam
 
 `flake/hosts/zephyr.nix` imports:
 
-- `hosts/zephyr/` (imports `./brew.nix`, `modules/cachix`, `modules/sops`)
+- `hosts/zephyr/` (imports `./brew.nix`, `modules/cachix`, `modules/sops`, `modules/services/atuin`)
 - `home-manager.darwinModules.home-manager`
 - `sops-nix.darwinModules.sops`
 - `nix-homebrew.darwinModules.nix-homebrew`
@@ -27,12 +27,13 @@ macOS laptop — nix-darwin on `aarch64-darwin`. Smaller than `freesia`; usernam
 
 ## Atuin sync server
 
-`hosts/zephyr/configuration.nix` runs `atuin-server` as a launchd daemon (`launchd.daemons.atuin`, label `org.nixos.atuin`):
+`modules/services/atuin/` runs `atuin-server` as a launchd **user agent** (`launchd.user.agents.atuin`, gui domain), enabled in `hosts/zephyr/configuration.nix` with `services.atuin-server.enable = true`:
 
-- Listens on `127.0.0.1:8888` only, SQLite database at `~/.local/share/atuin/server.db`, logs to `/var/log/atuin.log`
-- Exposed to the tailnet as `https://zephyr.tail32a8e5.ts.net` via `tailscale serve --bg http://127.0.0.1:8888` (imperative one-liner, persists in tailscaled)
+- Listens on `127.0.0.1:10002` only (`services.atuin-server.port`), SQLite database at `~/.local/share/atuin/server.db`, logs to `~/Library/Logs/atuin.log`
+  - A system daemon with `StandardOutPath` under `/var/log` fails instantly with `EX_CONFIG` (launchd cannot open the stdio file), which is why this is a user agent with a user-writable log path
+- Exposed to the tailnet as `https://zephyr.tail32a8e5.ts.net` via `tailscale serve --bg --http 443 http://127.0.0.1:10002` (imperative one-liner, persists in tailscaled)
 - Clients point at it with `sync_address` in `home/programs/atuin/default.nix`
-- `ATUIN_OPEN_REGISTRATION` starts as `"true"`; flip to `"false"` once accounts are registered
+- `services.atuin-server.openRegistration` starts as `true`; flip to `false` once accounts are registered
 
 
 ## Homebrew (`hosts/zephyr/brew.nix` + `nix-homebrew`)
