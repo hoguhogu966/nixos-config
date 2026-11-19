@@ -6,6 +6,7 @@
     ./programs/nixvim
     ./programs/opencode
     ./programs/zsh
+    ./programs/atuin
     ./programs/herdr
     ./programs/yazi
     ./programs/gh
@@ -31,6 +32,7 @@
     ./programs/bat
     ./programs/w3m
     ./programs/chawan
+    ./programs/ffmpeg
 
     # gui
     ./programs/plamonic

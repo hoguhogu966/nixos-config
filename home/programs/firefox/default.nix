@@ -12,13 +12,33 @@ let
   parfait = import ./parfait.nix { inherit pkgs; };
   containers = import ./containers.nix { inherit lib; };
   extensions = import ./extensions.nix { inherit lib pkgs inputs isCI; };
+  permissions = import ./permissions.nix;
+  firefoxPackage = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.firefox;
 in
 {
   # Keep the managed profile outside macOS's protected default application
   # support directory. The wrapped Nix package uses this as MOZ_APP_DATA.
   programs.firefox = {
     enable = true;
-    package = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.firefox;
+    # Grant the origins in permissions.nix the "shortcuts" site permission
+    # via AutoConfig (mozilla.cfg) so they can override keyboard shortcuts
+    # even though "permissions.default.shortcuts" = 2 below. This cannot be
+    # expressed in policies.json, whose Permissions policy has no Shortcuts
+    # key.
+    package =
+      if permissions.shortcutAllowOrigins == [ ] then
+        firefoxPackage
+      else
+        firefoxPackage.override {
+          extraPrefs = permissions.shortcutAllowPrefs;
+          # AutoConfig must run non-sandboxed so mozilla.cfg may use
+          # Components to reach the permission manager. The default-channel
+          # Firefox built by nixpkgs already disables the sandbox, but pin it
+          # so a flipped upstream default cannot silently break the grants.
+          extraAutoConfig = ''
+            pref("general.config.sandbox_enabled", false);
+          '';
+        };
     configPath =
       if isDarwin then "${config.xdg.configHome}/mozilla/firefox" else ".mozilla/firefox";
     profiles = {
@@ -66,6 +86,8 @@ in
           "permissions.default.microphone" = 2;
           "permissions.default.geo" = 2;
           "permissions.default.desktop-notification" = 2;
+          # Blocks keyboard-shortcut overrides globally; per-site exceptions
+          # live in permissions.nix.
           "permissions.default.shortcuts" = 2;
           "permissions.default.xr" = 2;
           "media.getusermedia.screensharing.enabled" = false;

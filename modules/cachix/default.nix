@@ -12,6 +12,7 @@
         "https://nix-community.cachix.org"
         "https://ghostty.cachix.org"
         "https://niri.cachix.org"
+        "https://lanzaboote.cachix.org"
         "https://cache.nixos-cuda.org"
       ];
       trusted-public-keys = [
@@ -20,6 +21,7 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
         "niri.cachix.org-1:Wv0UzwLBOfMIiQRtEPf50VzM2g0R0u1uJj59y/v68cM="
+        "lanzaboote.cachix.org-1:Nt9//zGmqkg1k5iu+B3bkj3OmHKjSw9pvf3faffLLNk="
         "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
       ];
     };

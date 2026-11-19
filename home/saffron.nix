@@ -18,6 +18,7 @@
     ./programs/direnv
     ./programs/tmux
     ./programs/zsh
+    ./programs/atuin
     #./programs/nushell
     ./programs/herdr
     ./programs/yazi
@@ -35,6 +36,7 @@
     ./programs/fuzzel
     ./programs/obs
     ./programs/ghostty
+    ./programs/herdr-app
     ./programs/alacritty
     ./programs/noctalia
     #./programs/kitty
