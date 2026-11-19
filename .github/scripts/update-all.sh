@@ -46,6 +46,10 @@ run_update ollama pkgs/ollama.nix .github/scripts/update-ollama.sh
 run_update omniwm pkgs/omniwm.nix .github/scripts/update-omniwm.sh
 run_update souieba pkgs/souieba.nix nix-update --file pkgs/update-targets.nix --override-filename pkgs/souieba.nix souieba
 
+# herdr-app and herdr-core release together from https://releases.herdr.dev;
+# update-herdr.sh keeps both in sync from the same manifests.
+run_update herdr 'pkgs/herdr-app.nix pkgs/herdr-core.nix' .github/scripts/update-herdr.sh
+
 if [ ${#failed[@]} -gt 0 ]; then
   echo "UPDATE_FAILURES=${failed[*]}" >> "${GITHUB_ENV:-/dev/null}"
   echo "::warning::failed package updates: ${failed[*]}"

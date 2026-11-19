@@ -13,5 +13,7 @@ in {
     souieba
     ;
   cloudflared = pkgs.callPackage ./cloudflared.nix { };
+  herdr-app = pkgs.callPackage ./herdr-app.nix { };
+  herdr-core = pkgs.callPackage ./herdr-core.nix { };
   omniwm = pkgs.callPackage ./omniwm.nix { };
 }

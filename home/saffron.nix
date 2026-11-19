@@ -36,6 +36,7 @@
     ./programs/fuzzel
     ./programs/obs
     ./programs/ghostty
+    ./programs/herdr-app
     ./programs/alacritty
     ./programs/noctalia
     #./programs/kitty
