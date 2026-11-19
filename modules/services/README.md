@@ -50,7 +50,7 @@ DOCKER_HOST=unix://$HOME/.colima/default/docker.sock \
 | altero | `~/src/tool/zotero/altero/.env` | ALTERO_DATABASE_URL (必須: 接続URL全体。パスワードのURL予約文字はパーセントエンコードし、db の raw POSTGRES_PASSWORD と同じ認証情報にする), POSTGRES_PASSWORD 等 (既存) |
 | vikunja | `~/src/tool/vikunja/.env` | VIKUNJA_DB_PASSWORD, VIKUNJA_SERVICE_SECRET |
 | pydio | `~/src/tool/pydio/.env` | MYSQL_ROOT_PASSWORD, MYSQL_PASSWORD |
-| penpot | `~/src/tool/penpot/.env` | PENPOT_VERSION, PENPOT_SECRET_KEY |
+| penpot | `~/src/tool/penpot/.env` | PENPOT_SECRET_KEY (version is pinned in `modules/services/web/penpot/default.nix`) |
 | color-dis-bot | `~/src/tool/color_dis_bot/.env` | DISCORD_TOKEN (既存) |
 
 ## ログ

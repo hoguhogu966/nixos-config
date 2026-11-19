@@ -1,11 +1,15 @@
 # Penpot — design & prototyping platform (official 5-container compose:
 # frontend, backend, exporter, mcp, postgres, valkey, mailcatch + nginx).
-# The secret key and version pin live in ~/src/tool/penpot/.env and are
-# substituted at compose parse time via --env-file. nginx.conf and the
-# nginx-overrides directory stay in ~/src/tool/penpot.
+# The version is pinned here (not via the env file) so a stale
+# PENPOT_VERSION in ~/src/tool/penpot/.env cannot keep vulnerable images
+# deployed; only the secret key comes from the .env, substituted at
+# compose parse time via --env-file. nginx.conf and the nginx-overrides
+# directory stay in ~/src/tool/penpot.
 { config, ... }:
 let
-  version = "\${PENPOT_VERSION:-2.18.7}";
+  # >= 2.18.7: fixes GHSA-pf4p-35w6-gcqc (2.18.6) and
+  # GHSA-9wg6-cgj3-jccq (2.18.7). Bump here, never via the env file.
+  version = "2.18.7";
 
   # Shared environment blocks (compose YAML anchors, inlined here).
   penpotFlags = {
