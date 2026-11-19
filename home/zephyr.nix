@@ -32,6 +32,9 @@
 
     # zephyr-specific
     ./programs/cloudflared
+
+    # services from ~/src/tool (see ../modules/services/README.md)
+    ../modules/services
   ];
 
   home = {

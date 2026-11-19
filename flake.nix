@@ -81,6 +81,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     opencode.url = "github:anomalyco/opencode/v2.1.4";
+    # color-dis-bot: local Discord bot flake (~/src/tool/color_dis_bot),
+    # used by modules/services/dev/color-dis-bot as a launchd service.
+    color-dis-bot.url = "path:/Users/zephyr/src/tool/color_dis_bot";
     i-have-adhd = {
       url = "github:ayghri/i-have-adhd";
       flake = false;
