@@ -15,12 +15,16 @@
           security_opt = [ "no-new-privileges:true" ];
           cap_drop = [ "ALL" ];
           environment = {
-            PUID = "\${PUID}";
-            PGID = "\${PGID}";
+            # Set with user instead: the official image does not honor
+            # PUID/PGID environment variables.
             TZ = "\${TZ}";
           };
+          user = "\${PUID}:\${PGID}";
           volumes = [
             "${config.home.homeDirectory}/src/tool/madia_server/config/jellyfin:/config"
+            # Persistent transcode cache; writable by the configured user
+            # (an image-owned anonymous volume would stay root-owned).
+            "${config.home.homeDirectory}/src/tool/madia_server/cache:/cache"
             "${config.home.homeDirectory}/src/tool/madia_server/media:/media"
             "${config.home.homeDirectory}/src/tool/samba/data:/samba:ro"
           ];

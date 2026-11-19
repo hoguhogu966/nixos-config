@@ -36,7 +36,9 @@
             "${config.home.homeDirectory}/src/tool/zotero/altero/.env"
           ];
           environment = {
-            ALTERO_DATABASE_URL = "postgresql+asyncpg://altero:\${POSTGRES_PASSWORD:-altero}@db:5432/altero";
+            # Taken verbatim from .env: the password must be URL-encoded
+            # here, while the db service below keeps POSTGRES_PASSWORD raw.
+            ALTERO_DATABASE_URL = "\${ALTERO_DATABASE_URL}";
             ALTERO_SMTP_URL = "\${ALTERO_SMTP_URL:-}";
             ALTERO_MAIL_FROM = "\${ALTERO_MAIL_FROM:-altero@localhost}";
             ALTERO_PUBLIC_URL = "\${ALTERO_PUBLIC_URL:-}";
