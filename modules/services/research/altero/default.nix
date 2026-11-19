@@ -46,6 +46,11 @@
           volumes = [ "storage:/data" ];
           ports = [ "127.0.0.1:\${ALTERO_PUBLISH_PORT:-8000}:8000" ];
         };
+
+        volumes = {
+          db = { };
+          storage = { };
+        };
       };
     })
   ];
