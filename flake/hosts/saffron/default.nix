@@ -40,6 +40,10 @@ nixpkgs.lib.nixosSystem {
           ollama = final.callPackage ../../../pkgs/ollama.nix {
             ollama = inputs.nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system}.ollama;
           };
+          # WirePlumber 0.5.18+ fixes profile handling around monitor DPMS
+          # wake-ups (find-best-profile route availability ranking, default
+          # node restore). The stable nixpkgs channel still ships 0.5.14.
+          wireplumber = inputs.nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system}.wireplumber;
         })
       ];
     }
