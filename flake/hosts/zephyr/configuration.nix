@@ -1,15 +1,19 @@
-{ username, self, pkgs, inputs, ... }:
+{ lib, username, self, pkgs, inputs, ... }:
 {
   imports = [
     ./brew.nix
     ../../../modules/cachix
     ../../../modules/sops
+    ../../../modules/services/atuin
   ];
 
   environment.systemPackages = with pkgs; [
     vim
   ];
-  
+
+  # Self-hosted atuin sync server; see modules/services/atuin.
+  services.atuin-server.enable = true;
+
   nix.settings.experimental-features = "nix-command flakes";
 
   # Set Git commit hash for darwin-version.
