@@ -5,6 +5,7 @@ let
   # site permission "Override Keyboard Shortcuts".
   shortcutAllowOrigins = [
     "https://docs.google.com"
+    "https://www.figma.com"
   ];
 in
 {
