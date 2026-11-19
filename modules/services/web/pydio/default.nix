@@ -10,7 +10,7 @@
       envFile = "${config.home.homeDirectory}/src/tool/pydio/.env";
       compose = {
         services.cells = {
-          image = "pydio/cells:latest";
+          image = "pydio/cells:5.1.1";
           restart = "unless-stopped";
           ports = [ "8080:8080" ];
           volumes = [

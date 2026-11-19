@@ -9,7 +9,7 @@
         networks.gitea = { };
 
         services.server = {
-          image = "docker.gitea.com/gitea:latest";
+          image = "docker.gitea.com/gitea:28.4";
           container_name = "gitea";
           restart = "always";
           networks = [ "gitea" ];

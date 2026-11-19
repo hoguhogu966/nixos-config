@@ -5,7 +5,7 @@
 # nginx-overrides directory stay in ~/src/tool/penpot.
 { config, ... }:
 let
-  version = "\${PENPOT_VERSION:-2.18.5}";
+  version = "\${PENPOT_VERSION:-2.18.7}";
 
   # Shared environment blocks (compose YAML anchors, inlined here).
   penpotFlags = {
@@ -148,7 +148,7 @@ in
           image = "sj26/mailcatcher:latest";
           restart = "always";
           expose = [ "1025" ];
-          ports = [ "1080:1080" ];
+          ports = [ "127.0.0.1:1080:1080" ];
           networks = [ "penpot" ];
         };
 
