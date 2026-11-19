@@ -33,10 +33,11 @@ stdenv.mkDerivation (finalAttrs: {
     copyDesktopItems
   ];
 
-  # Only libxcb and libxkbcommon are linked at build time. The app dlopens
-  # libvulkan.so.1, libEGL.so.1, libwayland-{client,egl}.so and
-  # libxkbcommon-x11.so.0 at runtime, so they only need to be reachable via
-  # the RPATH autoPatchelfHook writes.
+  # Only libgcc, libxcb and libxkbcommon are linked at build time; the app
+  # dlopens libvulkan.so.1, libEGL.so.1, libwayland-{client,egl}.so and
+  # libxkbcommon-x11.so.0 at runtime, which autoPatchelfHook cannot see
+  # (it only satisfies DT_NEEDED entries). appendRunpaths below extends the
+  # final RPATH with these libraries' directories.
   buildInputs = [
     libGL
     libgcc
@@ -69,6 +70,21 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  # autoPatchelfHook only resolves DT_NEEDED libraries (libxcb, libxkbcommon,
+  # libgcc); the app dlopens libvulkan.so.1, libEGL.so.1,
+  # libwayland-{client,egl}.so and libxkbcommon-x11.so.0 at runtime.
+  # appendRunpaths is autoPatchelfHook's supported way to extend the final
+  # RPATH. The nixpkgs vulkan-loader searches /run/opengl-driver/share for
+  # ICDs, so the NVIDIA driver resolves without wrappers or env vars.
+  appendRunpaths = [
+    (lib.makeLibraryPath [
+      libGL
+      libxkbcommon
+      vulkan-loader
+      wayland
+    ])
+  ];
 
   meta = {
     description = "Desktop app for terminals and coding agents";
