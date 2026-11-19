@@ -31,7 +31,7 @@ macOS laptop — nix-darwin on `aarch64-darwin`. Smaller than `freesia`; usernam
 
 - Listens on `127.0.0.1:10002` only (`services.atuin-server.port`), SQLite database at `~/.local/share/atuin/server.db`, logs to `~/Library/Logs/atuin.log`
   - A system daemon with `StandardOutPath` under `/var/log` fails instantly with `EX_CONFIG` (launchd cannot open the stdio file), which is why this is a user agent with a user-writable log path
-- Exposed to the tailnet as `https://zephyr.tail32a8e5.ts.net` via `tailscale serve --bg --http 443 http://127.0.0.1:10002` (imperative one-liner, persists in tailscaled)
+- Exposed to the tailnet as `https://zephyr.tail32a8e5.ts.net` via `tailscale serve --bg --https 443 http://127.0.0.1:10002` (imperative one-liner, persists in tailscaled)
 - Clients point at it with `sync_address` in `home/programs/atuin/default.nix`
 - `services.atuin-server.openRegistration` starts as `true`; flip to `false` once accounts are registered
 
