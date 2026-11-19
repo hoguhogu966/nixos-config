@@ -12,7 +12,7 @@
       preDirs = [ "${config.home.homeDirectory}/src/tool/madia_server/cache" ];
       compose = {
         services.jellyfin = {
-          image = "jellyfin/jellyfin:12.2";
+          image = "jellyfin/jellyfin:12.4";
           container_name = "jellyfin";
           restart = "unless-stopped";
           security_opt = [ "no-new-privileges:true" ];
