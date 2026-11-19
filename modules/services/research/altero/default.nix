@@ -38,7 +38,8 @@
           environment = {
             # Taken verbatim from .env: the password must be URL-encoded
             # here, while the db service below keeps POSTGRES_PASSWORD raw.
-            ALTERO_DATABASE_URL = "\${ALTERO_DATABASE_URL}";
+            # The :? form stops the deploy if the variable is missing.
+            ALTERO_DATABASE_URL = "\${ALTERO_DATABASE_URL:?Set ALTERO_DATABASE_URL in ~/src/tool/zotero/altero/.env}";
             ALTERO_SMTP_URL = "\${ALTERO_SMTP_URL:-}";
             ALTERO_MAIL_FROM = "\${ALTERO_MAIL_FROM:-altero@localhost}";
             ALTERO_PUBLIC_URL = "\${ALTERO_PUBLIC_URL:-}";

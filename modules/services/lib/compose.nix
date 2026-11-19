@@ -15,6 +15,9 @@
 #   envFile    optional absolute path passed as --env-file; needed when the
 #              YAML contains ${VAR} substitutions (secrets live outside this
 #              repo in ~/src/tool/<service>/.env, never in this repo)
+#   preDirs    optional list of absolute host directories created (mkdir -p,
+#              owned by the user) before `up`, so docker does not create
+#              bind-mount sources as root
 #   interval   seconds between re-apply runs (default: 1800)
 settings:
 
@@ -41,6 +44,8 @@ let
       sleep 5
       elapsed=$((elapsed + 5))
     done
+
+    ${lib.concatMapStringsSep "\n" (dir: "mkdir -p ${lib.escapeShellArg dir}") (settings.preDirs or [ ])}
 
     exec ${pkgs.docker-client}/bin/docker compose \
       --project-name ${settings.name} \

@@ -13,6 +13,18 @@
 有効/無効は `modules/services/default.nix` で**サービス単位** (ディレクトリ単位では
 ない) で指定する。外したいサービスはその import 行を削除して rebuild する。
 
+**注意**: import を削除して rebuild しても起動済みコンテナは止まらない
+(ヘルパーは `up --detach` のみで、エージェント削除は shutdown を行わない)。
+止める場合は rebuild 後に手動で (colima の socket と .env が必要なサービスは
+同じ `--env-file` を付けて):
+
+```bash
+DOCKER_HOST=unix://$HOME/.colima/default/docker.sock \
+  docker compose --project-name <name> stop
+```
+
+コンテナは削除されず保持されるので、再び有効化したときに再利用できる。
+
 ## 仕組み
 
 - 各サービスは `lib/compose.nix` 経由で
@@ -35,7 +47,7 @@
 |---|---|---|
 | jellyfin | `~/src/tool/madia_server/.env` | PUID, PGID, TZ (既存) |
 | linkding | `~/src/tool/linkding/.env` | LINKDING_SECRET 等 (既存) |
-| altero | `~/src/tool/zotero/altero/.env` | POSTGRES_PASSWORD 等 (既存) |
+| altero | `~/src/tool/zotero/altero/.env` | ALTERO_DATABASE_URL (必須: 接続URL全体。パスワードのURL予約文字はパーセントエンコードし、db の raw POSTGRES_PASSWORD と同じ認証情報にする), POSTGRES_PASSWORD 等 (既存) |
 | vikunja | `~/src/tool/vikunja/.env` | VIKUNJA_DB_PASSWORD, VIKUNJA_SERVICE_SECRET |
 | pydio | `~/src/tool/pydio/.env` | MYSQL_ROOT_PASSWORD, MYSQL_PASSWORD |
 | penpot | `~/src/tool/penpot/.env` | PENPOT_VERSION, PENPOT_SECRET_KEY |

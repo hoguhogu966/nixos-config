@@ -7,6 +7,9 @@
     (import ../../lib/compose.nix {
       name = "madia_server";
       envFile = "${config.home.homeDirectory}/src/tool/madia_server/.env";
+      # Created before `up` so docker never owns it as root; the ${PUID} user
+      # needs write access for the transcode cache.
+      preDirs = [ "${config.home.homeDirectory}/src/tool/madia_server/cache" ];
       compose = {
         services.jellyfin = {
           image = "jellyfin/jellyfin:12.2";
