@@ -40,6 +40,8 @@ nixpkgs.lib.nixosSystem {
           ollama = final.callPackage ../../../pkgs/ollama.nix {
             ollama = inputs.nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system}.ollama;
           };
+          herdr-app = final.callPackage ../../../pkgs/herdr-app.nix { };
+          herdr-core = final.callPackage ../../../pkgs/herdr-core.nix { };
         })
       ];
     }
