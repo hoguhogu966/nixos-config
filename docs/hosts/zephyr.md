@@ -25,6 +25,16 @@ macOS laptop — nix-darwin on `aarch64-darwin`. Smaller than `freesia`; usernam
 - System package `vim`
 - No custom `pkgs/` overlays (unlike `freesia`)
 
+## Atuin sync server
+
+`hosts/zephyr/configuration.nix` runs `atuin-server` as a launchd daemon (`launchd.daemons.atuin`, label `org.nixos.atuin`):
+
+- Listens on `127.0.0.1:8888` only, SQLite database at `~/.local/share/atuin/server.db`, logs to `/var/log/atuin.log`
+- Exposed to the tailnet as `https://zephyr.tail32a8e5.ts.net` via `tailscale serve --bg http://127.0.0.1:8888` (imperative one-liner, persists in tailscaled)
+- Clients point at it with `sync_address` in `home/programs/atuin/default.nix`
+- `ATUIN_OPEN_REGISTRATION` starts as `"true"`; flip to `"false"` once accounts are registered
+
+
 ## Homebrew (`hosts/zephyr/brew.nix` + `nix-homebrew`)
 
 `nix-homebrew` manages the same immutable taps as `freesia`. Casks: `lm-studio`, `tailscale-app`, `appcleaner`. `onActivation.autoUpdate = false`.
