@@ -6,6 +6,7 @@
     ./programs/nixvim
     ./programs/opencode
     ./programs/zsh
+    ./programs/atuin
     ./programs/herdr
     ./programs/yazi
     ./programs/gh

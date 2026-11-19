@@ -18,6 +18,7 @@
     ./programs/direnv
     ./programs/tmux
     ./programs/zsh
+    ./programs/atuin
     #./programs/nushell
     ./programs/herdr
     ./programs/yazi
